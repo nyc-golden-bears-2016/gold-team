@@ -1,11 +1,9 @@
 class Card
-  attr_accessor :correct
   attr_reader :question, :answer
 
-  def initialize(args = {})
-    @question = args.fetch(:question, '')
-    @answer= args.fetch(:answer, '')
-    @correct = false
+  def initialize(question, answer)
+    @question = question
+    @answer= answer
   end
 
 end

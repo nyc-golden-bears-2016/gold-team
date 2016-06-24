@@ -1,22 +1,26 @@
 require 'pry'
-
-class DataParser
+require_relative 'model/card'
+require_relative 'model/deck'
+class Controller
 
   def initialize(file)
     @file = file
   end
 
-  def parse
-    pre_list = File.readlines(@file).map do |line|
+  def grab_txt
+    File.readlines(@file).map do |line|
       line.split("\n")
     end
-    pre_list.delete_if {|array| array.empty?}
-    pre_list.flatten!
+  end
+
+  def parse
+    list = grab_txt.delete_if {|array| array.empty?}
+    # binding.pry
+    list.flatten!
     q_a_array = []
-    pre_list.each_with_index do |item, index|
+    list.each_with_index do |item, index|
       if index.even?
-        q_a_array << [item, pre_list[index + 1]]
-        end
+        q_a_array << [item, list[index + 1]]
       end
     end
     q_a_array
@@ -32,10 +36,3 @@ class DataParser
 
 
 end
-
-
-parser = DataParser.new('otter_flashcard_data.txt')
-parser.make_deck
-
-
-
